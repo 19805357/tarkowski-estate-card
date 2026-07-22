@@ -30,7 +30,9 @@ src/
     links.ts               # JEDYNE MIEJSCE edycji linków i PDF-ów
   components/
     Hero.tsx               # logo + imię + subtitle
-    TileGrid.tsx           # siatka kafelków projektów
+    ProjectCarousel.tsx    # "róża wiatrów" — poziomy scroll-carousel projektów
+    CompassRose.tsx        # dekoracyjny kompas SVG, obraca się ze scrollem
+    Icon.tsx               # resolver ikon lucide-react po nazwie (string)
     PdfList.tsx            # lista dokumentów PDF
     ContactCard.tsx        # dane kontaktowe
   assets/
@@ -81,12 +83,13 @@ Pełną zawartość tablic `tiles`, `pdfs`, `contacts` trzymamy w `src/data/link
 - Logo: `src/assets/logo-dark.png` — max-width 300px, wycentrowane
 - Subtitle: `rgba(255,255,255,0.45)`, 12px, letter-spacing
 
-### Kafelki (TileGrid)
-- Grid 2 kolumny, gap 8px
-- Białe tło, border `1px solid #e5e7eb`
-- border-radius 12px, padding 14px 16px
-- Kafelek `accent=true`: tło `#EFF6FF`, border `#185FA5`, tekst `#0C447C`
-- Na klik: `window.open(url, '_blank')`
+### Projekty — "róża wiatrów" (ProjectCarousel + CompassRose)
+- Zamiast statycznej siatki: poziomy scroll-carousel (scroll-snap-x), jeden kafelek na środku ekranu na raz
+- Nad karuzelą dekoracyjny SVG kompas (`CompassRose`), który **obraca się** wraz z aktywnym kafelkiem — każdy projekt ma przypisany kierunek/stopnie (N, NE, E... obliczane równomiernie z `tiles.length`)
+- Aktywny kafelek: pełna opacity + scale(1); nieaktywne: przygaszone (opacity 0.55) i pomniejszone (scale 0.94)
+- Kropki paginacji pod karuzelą, klikalne — przewijają do danego projektu
+- Klik na aktywny (wyśrodkowany) kafelek otwiera `url` w nowej karcie; klik na boczny — dosuwa go na środek
+- Kolory kafelków bez zmian: białe tło, border `1px solid #e5e7eb`, radius 12px; `accent=true` → tło `#EFF6FF`, border `#185FA5`, tekst `#0C447C`
 
 ### Lista PDF
 - Pełna szerokość, border-bottom między elementami
